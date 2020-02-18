@@ -1,26 +1,30 @@
 [
   {
     "subject": "my first message",
-    "body": "hey bro, checkout my mixtape please, its lit"
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
   },
   {
     "subject": "my second message",
-    "body": "hey bro, checkout my mixtape please, its lit"
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
   },
   {
     "subject": "my third message",
-    "body": "hey bro, checkout my mixtape please, its lit"
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
   },
   {
     "subject": "my message",
-    "body": "hey bro, checkout my mixtape please, its lit"
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
   },
   {
     "subject": "my message",
-    "body": "hey bro, checkout my mixtape please, its lit"
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
   },
   {
     "subject": "my message",
-    "body": "hey bro, checkout my mixtape please, its lit"
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
+  },
+  {
+    "subject": "Test automatic serialization",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
   }
 ]
