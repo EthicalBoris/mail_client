@@ -15,7 +15,7 @@ class Message {
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
 
-  static Future brose() async{
+  static Future<List<Message>> browse() async{
      http.Response response = await http.get(
         'http://www.mocky.io/v2/5e4c7b5b310000e2cad8bfb1'); // Remember to generate mocky from message.json
 

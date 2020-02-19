@@ -16,51 +16,70 @@ class MessageList extends StatefulWidget {
 }
 
 class _MessageListState extends State<MessageList> {
-  List<Message> messages = const [];
-  bool isLoading = true;
-
-  Future loadMessageList() async {    
-    List<Message> _messages = await Message.brose();
-
-    setState(() {
-      messages = _messages;
-      isLoading = false;
-    });
-  }
+  Future<List<Message>> messages;
 
   initState() {
-    loadMessageList();
     super.initState();
+    messages = Message.browse();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : ListView.separated(
-              itemCount: messages.length,
-              separatorBuilder: (context, index) => Divider(),
-              itemBuilder: (BuildContext context, int index) {
-                Message message = messages[index];
-
-                return ListTile(
-                  title: Text(message.subject),
-                  leading: CircleAvatar(
-                    child: Text('BD'),
-                  ),
-                  subtitle: Text(
-                    message.body,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  isThreeLine: true,
-                );
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                setState(() {
+                  messages = Message.browse();
+                });
               },
-            ),
-    );
+            )
+          ],
+        ),
+        body: FutureBuilder(
+          future: messages,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+
+              case ConnectionState.waiting:
+
+              case ConnectionState.active:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+
+              case ConnectionState.done:
+                if (snapshot.hasError) {
+                  return Text('There was an Error: ${snapshot.error}');
+                } else {
+                  var messages = snapshot.data;
+                  return ListView.separated(
+                    itemCount: messages.length,
+                    separatorBuilder: (context, index) => Divider(),
+                    itemBuilder: (BuildContext context, int index) {
+                      Message message = messages[index];
+
+                      return ListTile(
+                        title: Text(message.subject),
+                        leading: CircleAvatar(
+                          child: Text('BD'),
+                        ),
+                        subtitle: Text(
+                          message.body,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        isThreeLine: true,
+                      );
+                    },
+                  );
+                }
+            }
+          },
+        ));
   }
 }
