@@ -17,22 +17,15 @@ class MessageList extends StatefulWidget {
 
 class _MessageListState extends State<MessageList> {
   List<Message> messages = const [];
+  bool isLoading = true;
 
-  Future loadMessageList() async {
-    http.Response response =
-        await http.get('http://www.mocky.io/v2/5e4c7b5b310000e2cad8bfb1'); // Remember to generate mocky from message.json
-
-    String content = response.body;
-
-    List collection = json.decode(content);
-    List<Message> _messages =
-        collection.map((json) => Message.fromJson(json)).toList();
+  Future loadMessageList() async {    
+    List<Message> _messages = await Message.brose();
 
     setState(() {
       messages = _messages;
+      isLoading = false;
     });
-
-    print(collection);
   }
 
   initState() {
@@ -46,26 +39,28 @@ class _MessageListState extends State<MessageList> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView.separated(
-        itemCount: messages.length,
-        separatorBuilder: (context, index) => Divider(),
-        itemBuilder: (BuildContext context, int index) {
-          Message message = messages[index];
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ListView.separated(
+              itemCount: messages.length,
+              separatorBuilder: (context, index) => Divider(),
+              itemBuilder: (BuildContext context, int index) {
+                Message message = messages[index];
 
-          return ListTile(
-            title: Text(message.subject),
-            leading: CircleAvatar(
-              child: Text('BD'),
+                return ListTile(
+                  title: Text(message.subject),
+                  leading: CircleAvatar(
+                    child: Text('BD'),
+                  ),
+                  subtitle: Text(
+                    message.body,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  isThreeLine: true,
+                );
+              },
             ),
-            subtitle: Text(
-              message.body,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            isThreeLine: true,
-          );
-        },
-      ),
     );
   }
 }
