@@ -19,7 +19,7 @@ class Message {
      http.Response response = await http.get(
         'http://www.mocky.io/v2/5e4c7b5b310000e2cad8bfb1'); // Remember to generate mocky from message.json
 
-    await Future.delayed(Duration(seconds: 3));    
+    await Future.delayed(Duration(seconds: 1));    
 
     String content = response.body;
     List collection = json.decode(content);
