@@ -1,4 +1,5 @@
 //import 'dart:html';
+import 'package:email_validator/email_validator.dart';
 
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,13 @@ class _MessageComposeState extends State<MessageCompose> {
             children: <Widget>[
               ListTile(
                 title: TextFormField(
+                  validator: (value) {
+                    if (EmailValidator.validate(value)) {
+                      return null;
+                    } else {
+                      return "Not a valid email";
+                    }
+                  },
                   onSaved: (value) => to = value,
                   decoration: InputDecoration(
                     labelText: "To",
@@ -40,6 +48,12 @@ class _MessageComposeState extends State<MessageCompose> {
               Divider(),
               ListTile(
                 title: TextFormField(
+                  validator: (value) {
+                    if (value.length == 0) {
+                      return "Must supply a subject";
+                    }
+                    return null;
+                  },
                   onSaved: (value) => subject = value,
                   decoration: InputDecoration(
                     labelText: "Subject",
@@ -50,6 +64,12 @@ class _MessageComposeState extends State<MessageCompose> {
               Divider(),
               ListTile(
                 title: TextFormField(
+                  validator: (value) {
+                    if (value.length == 0) {
+                      return "Must supply a message body";
+                    }
+                    return null;
+                  },
                   onSaved: (value) => body = value,
                   decoration: InputDecoration(
                     labelText: "Message",
@@ -62,10 +82,12 @@ class _MessageComposeState extends State<MessageCompose> {
                 title: RaisedButton(
                   child: Text("Send"),
                   onPressed: () {
-                    this.key.currentState.save();
+                    if (this.key.currentState.validate()) {
+                      this.key.currentState.save();
 
-                    Message message = Message(subject, body);
-                    Navigator.pop(context, message);
+                      Message message = Message(subject, body);
+                      Navigator.pop(context, message);
+                    }
                   },
                 ),
               ),
